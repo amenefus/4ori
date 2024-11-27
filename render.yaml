@@ -3,7 +3,7 @@ services:
     name: weather-app
     env: docker
     plan: free
-    dockerfilePath: Dockerfile
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: SPRING_DATASOURCE_URL
         fromDatabase:
@@ -17,15 +17,8 @@ services:
         fromDatabase:
           name: weather-db
           property: password
-    buildCommand: ./mvnw clean install
-    startCommand: java -jar app.jar
-    autoDeploy: true
-    healthCheckPath: /
 
 databases:
   - name: weather-db
     plan: free
-    postgresVersion: 13
     databaseName: weather_service
-    user: postgres
-    password: O1234

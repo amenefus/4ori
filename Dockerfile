@@ -1,27 +1,21 @@
-# Use a Maven image with a compatible Java runtime for building the application
-FROM maven:3.9.9-eclipse-temurin-17 AS build
+# Use OpenJDK 17 as the base image
+FROM openjdk:17-jdk-slim
+
+# Set the working directory
 WORKDIR /app
+
+# Install Maven
+RUN apt-get update && apt-get install -y maven
 
 # Copy the project files into the container
-COPY pom.xml mvnw ./
-COPY .mvn .mvn
+COPY pom.xml .
 COPY src src
 
-# Ensure mvnw has execute permissions
-RUN chmod +x mvnw
-
 # Build the Maven project
-RUN ./mvnw clean install
-
-# Use a lightweight JDK image for running the application
-FROM eclipse-temurin:17-jre
-WORKDIR /app
-
-# Copy the JAR file from the build stage
-COPY --from=build /app/target/*.jar app.jar
+RUN mvn clean package -DskipTests
 
 # Expose the port the app runs on
 EXPOSE 8080
 
 # Run the application
-CMD ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "target/*.jar"]

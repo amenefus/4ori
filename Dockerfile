@@ -15,7 +15,10 @@ COPY src src
 RUN mvn clean package -DskipTests
 
 # Expose the port the app runs on
+COPY --from=build /app/target/*.jar app.jar
+
+# Expose the port the app runs on
 EXPOSE 8080
 
 # Run the application
-CMD ["java", "-jar", "target/*.jar"]
+CMD ["java", "-jar", "app.jar"]

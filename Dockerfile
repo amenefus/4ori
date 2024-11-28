@@ -4,7 +4,6 @@ WORKDIR /app
 
 # Copy the project files into the container
 COPY pom.xml mvnw ./
-COPY .mvn .mvn
 COPY src src
 
 # Ensure mvnw has execute permissions

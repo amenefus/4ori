@@ -8,7 +8,7 @@ services:
       - key: SPRING_DATASOURCE_URL
         fromDatabase:
           name: weather-db
-          property: connectionString
+          property: jdbcConnectionString
       - key: SPRING_DATASOURCE_USERNAME
         fromDatabase:
           name: weather-db

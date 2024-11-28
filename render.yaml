@@ -6,7 +6,7 @@ services:
     dockerfilePath: ./Dockerfile
     envVars:
       - key: SPRING_DATASOURCE_URL
-        value: jdbc:${RENDER_DATABASE_URL}
+        value: ${RENDER_DATABASE_URL}
       - key: SPRING_DATASOURCE_USERNAME
         fromDatabase:
           name: weather-db
